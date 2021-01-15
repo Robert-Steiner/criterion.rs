@@ -88,7 +88,6 @@ use crate::benchmark::BenchmarkConfig;
 use crate::benchmark::NamedRoutine;
 use crate::connection::Connection;
 use crate::connection::OutgoingMessage;
-use crate::csv_report::FileCsvReport;
 use crate::html::Html;
 use crate::measurement::{Measurement, WallTime};
 use crate::plot::{Gnuplot, Plotter, PlottersBackend};
@@ -735,7 +734,6 @@ impl Default for Criterion {
         if CARGO_CRITERION_CONNECTION.is_none() {
             reports.push(Box::new(CliReport::new(false, false, false)));
         }
-        reports.push(Box::new(FileCsvReport));
 
         // Set criterion home to (in descending order of preference):
         // - $CRITERION_HOME (cargo-criterion sets this, but other users could as well)
@@ -989,7 +987,6 @@ impl<M: Measurement> Criterion<M> {
         if self.connection.is_none() {
             reports.push(Box::new(CliReport::new(false, false, false)));
         }
-        reports.push(Box::new(FileCsvReport));
         self.report = Box::new(Reports::new(reports));
         self
     }
@@ -1309,7 +1306,6 @@ https://bheisler.github.io/criterion.rs/book/faq.html
 
             let mut reports: Vec<Box<dyn Report>> = vec![];
             reports.push(cli_report);
-            reports.push(Box::new(FileCsvReport));
             if self.plotting_enabled {
                 reports.push(Box::new(Html::new(self.create_plotter())));
             }
