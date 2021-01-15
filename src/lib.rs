@@ -973,7 +973,6 @@ impl<M: Measurement> Criterion<M> {
         if self.connection.is_none() {
             reports.push(Box::new(CliReport::new(false, false, false)));
         }
-        reports.push(Box::new(FileCsvReport));
         reports.push(Box::new(Html::new(self.create_plotter())));
         self.report = Box::new(Reports::new(reports));
 
@@ -1418,7 +1417,7 @@ https://bheisler.github.io/criterion.rs/book/faq.html
     ///     // Now we can perform benchmarks with this group
     ///     group.bench_function("Bench 1", |b| b.iter(|| 1 ));
     ///     group.bench_function("Bench 2", |b| b.iter(|| 2 ));
-    ///    
+    ///
     ///     group.finish();
     /// }
     /// criterion_group!(benches, bench_simple);
